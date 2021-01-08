@@ -14,10 +14,27 @@ class Course extends Model
     // revision for the administrator
     protected $guarded = ['id', 'status'];
 
+    // make a count of the student in every course, in an atribute
+    protected $withCount = ['students', 'reviews'];
+
     // constant for the table, status
     const DRAFT = 1;
     const REVISION = 2;
     const PUBLISHED = 3;
+
+    // with getNameAttribute get a new attribute
+    public function getRatingAttribute()
+    {
+        if($this->reviews_count){
+            // return the collection of the reviews
+            // with avg() get the average
+            // rating is the name of the column
+            return round($this->reviews->avg('rating'), 1);
+        }else{
+            return 5;
+        }
+
+    }
 
     public function requirements()
     {
