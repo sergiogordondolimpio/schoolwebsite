@@ -13,8 +13,9 @@ class HomeController extends Controller
         // only the published courses
         $courses = Course::where('status', '3')
             ->latest('id')
-            ->get();
+            ->get()
+            ->take(12);
 
-        return view('welcome', compact('$courses'));
+        return view('welcome', compact('courses'));
     }
 }

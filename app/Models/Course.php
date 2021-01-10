@@ -36,6 +36,12 @@ class Course extends Model
 
     }
 
+    // using slug
+    public function getRouteKeyName()
+    {
+        return "slug";
+    }
+
     public function requirements()
     {
         return $this->hasMany('App\Models\Requirement');

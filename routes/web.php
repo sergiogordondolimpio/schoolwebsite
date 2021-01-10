@@ -14,8 +14,16 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', HomeController::class)->name('home');
+Route::get('/', HomeController::class)->name('home');   
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::get('courses', function(){
+    return 'show the list of courses';
+})->name('courses.index');
+
+Route::get('courses{course}', function($course){
+    return "show information of $course";
+})->name('courses.show');
