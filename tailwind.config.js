@@ -19,5 +19,9 @@ module.exports = {
         opacity: ['responsive', 'hover', 'focus', 'disabled'],
     },
 
+    corePlugins: {
+        container: false,
+    },
+
     plugins: [require('@tailwindcss/ui')],
 };

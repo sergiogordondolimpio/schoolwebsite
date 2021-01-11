@@ -22,6 +22,24 @@ class Course extends Model
     const REVISION = 2;
     const PUBLISHED = 3;
 
+    //Query Scope, to customize for categories
+    public function scopeCategory($query, $category_id)
+    {
+        // if there is something in the category_id
+        if ($category_id){
+            return $query->where('category_id', $category_id);
+        }
+    }
+
+    //Query Scope, to customize for level
+    public function scopeLevel($query, $level_id)
+    {
+        // if there is something in the level_id
+        if ($level_id){
+            return $query->where('level_id', $level_id);
+        }
+    }
+
     // with getNameAttribute get a new attribute
     public function getRatingAttribute()
     {
