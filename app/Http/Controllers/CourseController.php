@@ -4,10 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Course;
+
 class CourseController extends Controller
 {
     public function index()
     {
         return view('courses.index');
+    }
+
+    public function show(Course $course)
+    {
+        // query for recover the courses like the client is visiting
+        // and without it, only the last five
+        
+        $similars = Course::where('category_id', $course->category_id)
+                    ->where('id', '!=', $course->id)
+                    ->where('status', 3)
+                    ->latest('id')
+                    ->take(5)
+                    ->get();
+                    
+        return view('courses.show', compact('course', 'similars'));
     }
 }
