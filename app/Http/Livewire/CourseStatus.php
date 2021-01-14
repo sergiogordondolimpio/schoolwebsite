@@ -20,6 +20,10 @@ class CourseStatus extends Component
             break;
             }
         }
+
+        if (!$this->current) {
+            $this->current = $course->lessons->last();
+        }
     }
 
     public function render()
@@ -27,11 +31,33 @@ class CourseStatus extends Component
         return view('livewire.course-status');
     }
 
+    // Methods
+
     public function changeLesson(Lesson $lesson)
     {
         $this->current = $lesson;
 
     }
+
+    public function completed()
+    {
+        if($this->current->completed){
+            // delete data with detach
+            // access to the relation with () 
+            $this->current->users()->detach(auth()->user()->id);
+        }else{
+            // add data whith attach
+            $this->current->users()->attach(auth()->user()->id);
+
+        }
+
+        // find the current to update the icons
+        $this->current = Lesson::find($this->current->id);
+        $this->course = Course::find($this->course->id);
+    }
+
+
+    // Properties
 
     // with getNameProperty automaticaly create the variable
     // name and return the change in name
@@ -59,4 +85,21 @@ class CourseStatus extends Component
             return $this->next = $this->course->lessons[$this->index + 1];
         }
     }
+    
+    public function getAdvanceProperty()
+    {
+        $i = 0;
+
+        foreach($this->course->lessons as $lesson){
+            if($lesson->completed){
+                $i++;;
+            }
+        }
+
+        $advance = ($i * 100 / ($this->course->lessons->count()));
+
+        return round($advance, 2);
+    }
+
+
 }

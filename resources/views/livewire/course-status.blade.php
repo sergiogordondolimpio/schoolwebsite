@@ -1,6 +1,6 @@
 <div class="mt-8">
-    <div class="container grid grid-cols-3 gap-8">
-        <div class="col-span-2">
+    <div class="container grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
             <div class="embed-responsive">
                 {!!$current->iframe!!}
             </div>
@@ -12,8 +12,12 @@
                     {{$current->description->name}}
                 </div>
             @endif
-            <div class="flex items-center mt-4 cursor-pointer">
+            <div class="flex items-center mt-4 cursor-pointer" wire:click="completed">
+                @if ($current->completed)
+                <i class="fas fa-toggle-on text-2xl text-blue-600"></i>
+                @else
                 <i class="fas fa-toggle-off text-2xl text-gray-600"></i>
+                @endif
                 <p class="text-sm ml-2">Mark this lesson as finished</p>
             </div>
 
@@ -43,10 +47,10 @@
                     </div>
                 </div>
 
-                <p class="text-gray-600 text-sm mt-2">20% completed</p>
+                <p class="text-gray-600 text-sm mt-2"> {{$this->advance}}% completed</p>
                 <div class="relative pt-1">
                     <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
-                      <div style="width:30%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
+                      <div style="width:{{$this->advance}}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500 transition-all duration-500"></div>
                     </div>
                 </div>
 
