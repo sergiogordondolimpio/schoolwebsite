@@ -15,9 +15,11 @@ class CourseController extends Controller
 
     public function show(Course $course)
     {
+        // filter in CoursePolicy
+        $this->authorize('published', $course);
+
         // query for recover the courses like the client is visiting
         // and without it, only the last five
-        
         $similars = Course::where('category_id', $course->category_id)
                     ->where('id', '!=', $course->id)
                     ->where('status', 3)

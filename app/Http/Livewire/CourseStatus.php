@@ -6,8 +6,11 @@ use Livewire\Component;
 use App\Models\Course;
 use App\Models\Lesson;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 class CourseStatus extends Component
 {
+    use AuthorizesRequests;
     public $course, $current;
 
     public function mount(Course $course)
@@ -24,6 +27,9 @@ class CourseStatus extends Component
         if (!$this->current) {
             $this->current = $course->lessons->last();
         }
+
+        // only if the user is enrolled can enter to the course
+        $this->authorize('enrolled', $course);
     }
 
     public function render()

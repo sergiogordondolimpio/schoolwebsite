@@ -30,4 +30,15 @@ class CoursePolicy
     {
         return $course->students->contains($user->id);
     }
+
+    // only access to the courses with status 3, published
+    // first check if the user is authenticated, use ? en User
+    public function published(?User $user, Course $course)
+    {
+        if($course->status == 3){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
