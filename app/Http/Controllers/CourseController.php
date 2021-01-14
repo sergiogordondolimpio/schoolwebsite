@@ -28,13 +28,13 @@ class CourseController extends Controller
         return view('courses.show', compact('course', 'similars'));
     }
 
-    public function enrolled(course $course)
+    public function enrolled(Course $course)
     {
         // with the id of the user and the relation one to many
         // the user with the course is joined
         $course->students()->attach(auth()->user()->id);
 
-        return redirect()->route('course.status', $course);
+        return redirect()->route('courses.status', $course);
     }
 
 }
