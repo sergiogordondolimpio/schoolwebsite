@@ -49,6 +49,7 @@ class RouteServiceProvider extends ServiceProvider
           
             // identified the admin.php as a router
             Route::middleware('web', 'auth')
+                ->name('admin.')
                 // that prefix is to not add admin in the route
                 ->prefix('admin')
                 ->namespace($this->namespace)
