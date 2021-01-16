@@ -11,6 +11,13 @@ use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('can:Read users')->only('index');
+        $this->middleware('can:Edit users')->only('edit', 'update');
+
+    }
+
     public function index()
     {
         return view('admin.users.index');

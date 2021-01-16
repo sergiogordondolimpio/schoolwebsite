@@ -71,9 +71,17 @@
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
                           
-                            <x-jet-dropdown-link href="{{ route('instructor.courses.index') }}">
-                                {{ __('Instructor') }}
-                            </x-jet-dropdown-link>
+                            @can('Read courses')
+                                <x-jet-dropdown-link href="{{ route('instructor.courses.index') }}">
+                                    {{ __('Instructor') }}
+                                </x-jet-dropdown-link>                                
+                            @endcan
+
+                            @can('See dashboard')
+                                <x-jet-dropdown-link href="{{ route('admin.home') }}">
+                                    {{ __('Administrator') }}
+                                </x-jet-dropdown-link>                                
+                            @endcan
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -177,9 +185,17 @@
                         {{ __('Profile') }}
                     </x-jet-responsive-nav-link>
 
+                    @can('Read courses')
                     <x-jet-dropdown-link href="{{ route('instructor.courses.index') }}" :active="request()->routeIs('instructor.courses.index')">
                         {{ __('Instructor') }}
                     </x-jet-dropdown-link>
+                    @endcan
+
+                    @can('See dashboard')
+                    <x-jet-dropdown-link href="{{ route('admin.home') }}" :active="request()->routeIs('instructor.courses.index')">
+                        {{ __('Administrator') }}
+                    </x-jet-dropdown-link>
+                    @endcan
 
                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                         <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
