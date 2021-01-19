@@ -24,9 +24,6 @@ class CategorySeeder extends Seeder
         ]);
 
         Category::create([
-            'name' => 'Web Development'
-        ]);
-        Category::create([
             'name' => 'Development'
         ]);
     }

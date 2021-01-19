@@ -2,8 +2,9 @@
 
     <x-table-responsive>
         
-        <div class="px-6 py-4">
-            <input wire:keyboard="cleanPage" wire:model="search" class="form-input w-full shadow-sm" placeholder="Write the name of the course ...">
+        <div class="px-6 py-4 flex">
+            <input wire:keyboard="cleanPage" wire:model="search" class="form-input flex-1 shadow-sm" placeholder="Write the name of the course ...">
+            <a class="btn btn-green" href=" {{route('instructor.courses.create')}} ">Create course</a>
         </div>
 
         @if ($courses->count())
@@ -34,7 +35,11 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10">
-                                    <img class="h-10 w-10 rounded-full" src=" {{Storage::url($course->image->url)}} " alt="">
+                                    @isset($course->image)
+                                        <img class="h-10 w-10 rounded-full object-cover object-center" src=" {{Storage::url($course->image->url)}} " alt="">
+                                    @else
+                                        <img class="h-10 w-10 rounded-full object-cover object-center" src=" https://cdn.pixabay.com/photo/2020/05/05/12/12/coffee-5132832__340.jpg " alt="">
+                                    @endisset
                                 </div>
                                 <div class="ml-4">
                                     <div class="text-sm font-medium text-gray-900">
@@ -100,7 +105,7 @@
                                 
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                <a href=" {{route('instructor.courses.edit', $course)}} " class="text-indigo-600 hover:text-indigo-900">Edit</a>
                             </td>
                         </tr>
                     @endforeach

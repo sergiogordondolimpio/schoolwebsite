@@ -33,5 +33,10 @@
         @stack('modals')
 
         @livewireScripts
+
+        {{-- isset verify if the variable exist or not --}}
+        @isset($js)
+            {{$js}}
+        @endisset
     </body>
 </html>
